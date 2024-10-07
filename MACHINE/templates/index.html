@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Imágenes</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #image-preview {
+            margin-top: 20px;
+            max-width: 100%;
+            max-height: 400px;
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido a la Aplicación de Predicción de Imágenes</h1>
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required id="file-input">
+        <button type="submit">Predecir</button>
+    </form>
+    <img id="image-preview" alt="Previsualización de la imagen seleccionada">
+
+    <script>
+        // Script para mostrar la imagen seleccionada
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('image-preview');
+                    img.src = e.target.result;
+                    img.style.display = 'block'; 
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
